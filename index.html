@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Grind Services ⚡ Level Up Instantly</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #030308;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ================= ANIMATED BACKGROUND ================= */
+        .bg-wrap {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background: radial-gradient(ellipse at top, #0a1a2f 0%, #030308 60%);
+            overflow: hidden;
+        }
+
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 204, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.07) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            animation: floatOrb 12s ease-in-out infinite;
+        }
+
+        .glow-orb.cyan { background: #00ffcc; width: 400px; height: 400px; top: -100px; left: -100px; }
+        .glow-orb.purple { background: #8a2be2; width: 500px; height: 500px; bottom: -150px; right: -150px; animation-delay: 4s; }
+        .glow-orb.pink { background: #ff00aa; width: 350px; height: 350px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: 8s; }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 40px) scale(0.9); }
+        }
+
+        .scan-line {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ffcc, transparent);
+            box-shadow: 0 0 20px #00ffcc;
+            z-index: -1;
+            animation: scan 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #00ffcc;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffcc;
+            opacity: 0.6;
+            animation: particleFloat 15s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 6%;
+            background: rgba(5, 10, 20, 0.6);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 204, 0.15);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            text-shadow: 0 0 15px #00ffcc;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: "⚡";
+            font-size: 1.3rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #00ffcc); }
+            50% { transform: scale(1.2); filter: drop-shadow(0 0 15px #00ffcc); }
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+            text-shadow: 0 0 8px #00ffcc;
+        }
+
+        nav a.cta-nav {
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #000;
+            font-weight: 700;
+        }
+
+        nav a.cta-nav:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #00ffcc;
+        }
+
+        /* ================= HERO ================= */
+        .hero {
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .hero-inner {
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            color: #00ffcc;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(90deg, #00ffcc, #00aaff, #ff00aa, #00ffcc);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s linear infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+
+        .hero p.lead {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            opacity: 0.85;
+            margin-bottom: 35px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(0, 255, 204, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: #00ffcc;
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #00ffcc;
+            text-shadow: 0 0 15px #00ffcc;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= SECTIONS ================= */
+        section {
+            padding: 80px 6%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #00ffcc;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 50px;
+            font-size: 1rem;
+        }
+
+        /* ================= APP CARDS ================= */
+        .apps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.05), rgba(0, 50, 100, 0.1));
+            padding: 35px 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            backdrop-filter: blur(15px);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(0, 255, 204, 0.2), transparent 70%);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00ffcc;
+            box-shadow: 0 20px 60px rgba(0, 255, 204, 0.3);
+        }
+
+        .app-icon-wrap {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), rgba(0, 100, 200, 0.2));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            position: relative;
+            z-index: 1;
+            transition: 0.4s;
+        }
+
+        .app-card:hover .app-icon-wrap {
+            transform: rotate(-10deg) scale(1.1);
+        }
+
+        .app-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-tag {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #00ffcc;
+            font-weight: 600;
+        }
+
+        .open-app-btn {
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .open-app-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+
+        /* ================= MODALS ================= */
+        .app-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .app-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0a0f1c 0%, #1a1f3a 100%);
+            border: 1px solid #00ffcc;
+            border-radius: 28px;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+            box-shadow: 0 0 80px rgba(0, 255, 204, 0.4);
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-content::-webkit-scrollbar { width: 8px; }
+        .modal-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 10px; }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            color: #00ffcc;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 255, 204, 0.3);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 20px #00ffcc;
+        }
+
+        .modal-icon-big {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #00ffcc;
+        }
+
+        .modal-desc {
+            opacity: 0.85;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .modal-services {
+            text-align: left;
+            list-style: none;
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 25px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .modal-services li {
+            padding: 7px 0;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            border-bottom: 1px dashed rgba(0, 255, 204, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-services li:last-child { border-bottom: none; }
+        .modal-services::-webkit-scrollbar { width: 6px; }
+        .modal-services::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 10px; }
+        .modal-services::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 10px; }
+
+        .modal-prices {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .modal-price-item {
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 14px;
+            padding: 14px 8px;
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-price-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.2), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .modal-price-item:hover::before { opacity: 1; }
+
+        .modal-price-item:hover {
+            transform: translateY(-3px) scale(1.05);
+            border-color: #00ffcc;
+            box-shadow: 0 5px 25px rgba(0, 255, 204, 0.4);
+        }
+
+        .modal-price-item .p-title {
+            color: #00ffcc;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-price-item .p-amount {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: linear-gradient(90deg, #00ffcc, #00aaff);
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
+        }
+
+        .modal-btn.secondary {
+            background: transparent;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00ffcc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BACKGROUND -->
+    <div class="bg-wrap">
+        <div class="grid-bg"></div>
+        <div class="glow-orb cyan"></div>
+        <div class="glow-orb purple"></div>
+        <div class="glow-orb pink"></div>
+    </div>
+    <div class="scan-line"></div>
+
+    <!-- PARTICLES -->
+    <div class="particle" style="left:5%; animation-delay:0s;"></div>
+    <div class="particle" style="left:15%; animation-delay:2s;"></div>
+    <div class="particle" style="left:25%; animation-delay:4s;"></div>
+    <div class="particle" style="left:35%; animation-delay:1s;"></div>
+    <div class="particle" style="left:45%; animation-delay:3s;"></div>
+    <div class="particle" style="left:55%; animation-delay:5s;"></div>
+    <div class="particle" style="left:65%; animation-delay:1.5s;"></div>
+    <div class="particle" style="left:75%; animation-delay:3.5s;"></div>
+    <div class="particle" style="left:85%; animation-delay:2.5s;"></div>
+    <div class="particle" style="left:95%; animation-delay:4.5s;"></div>
+
+    <header>
+        <div class="logo">Elite Grind</div>
+        <nav>
+            <a href="#apps">Apps</a>
+            <a href="#why">Why Us</a>
+            <a href="#" onclick="openOrder(); return false;" class="cta-nav">Order Now</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                ONLINE — Accepting Orders 24/7
+            </div>
+            <h1>Level Up <span class="gradient">Instantly</span></h1>
+            <p class="lead">🎮 Pro grinding service for <strong>COD Mobile</strong>, <strong>Mobile Legends</strong> & <strong>Roblox</strong>. Fast, safe, and trusted by 500+ gamers.</p>
+            <div class="hero-btns">
+                <button class="btn btn-primary" onclick="openOrder()">🚀 Order Now</button>
+                <a href="#apps" class="btn btn-secondary" onclick="event.preventDefault(); document.getElementById('apps').scrollIntoView({behavior:'smooth'});">🎯 View Games</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">500+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">Safe & Secure</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-label">Fast Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="apps">
+        <h2 class="section-title">🎮 Choose Your Game</h2>
+        <p class="section-subtitle">Tap a game to see pricing & features</p>
+        <div class="apps">
+            <div class="app-card" onclick="openApp('codm')">
+                <div class="app-icon-wrap">🎯</div>
+                <h3>COD Mobile</h3>
+                <p>Rank push, BP grinding, weapon XP & more</p>
+                <div class="app-tags">
+                    <span class="app-tag">🏆 Ranked</span>
+                    <span class="app-tag">🎖️ Battle Pass</span>
+                    <span class="app-tag">🔫 Camos</span>
+                </div>
+                <button class="open-app-btn">Open App →</button>
+            </div>
+            <div class="app-card" onclick="openApp('ml')">
+                <div class="app-icon-wrap">⚔️</div>
+                <h3>Mobile Legends</h3>
+                <p>Mythic push, hero trials & weekly missions</p>
+                <div class="app-tags">
+                    <span class="app-tag">👑 Mythic</span>
+                    <span class="app-tag">🛡️ Heroes</span>
+                    <span class="app-tag">🎁 Events</span>
+                </div>
+                <button class="open-app-btn">Open App →</button>
+            </div>
+            <div class="app-card" onclick="openApp('roblox')">
+                <div class="app-icon-wrap">🎮</div>
+                <h3>Roblox</h3>
+                <p>Blox Fruits, Grow a Garden, Pet Sim & more</p>
+                <div class="app-tags">
+                    <span class="app-tag">🍎 Blox Fruits</span>
+                    <span class="app-tag">🌱 Garden</span>
+                    <span class="app-tag">🐾 Pets</span>
+                </div>
+                <button class="open-app-btn">Open App →</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="why">
+        <h2 class="section-title">💎 Why Choose Elite Grind?</h2>
+        <p class="section-subtitle">The most trusted grinding service in PH</p>
+        <div class="apps">
+            <div class="app-card" style="cursor:default;">
+                <div class="app-icon-wrap">⚡</div>
+                <h3>Fast Delivery</h3>
+                <p>Most orders done within 24-48 hours. Rush delivery available.</p>
+            </div>
+            <div class="app-card" style="cursor:default;">
+                <div class="app-icon-wrap">🛡️</div>
+                <h3>100% Safe</h3>
+                <p>VPN-secured, no bans. Your account stays clean & secure.</p>
+            </div>
+            <div class="app-card" style="cursor:default;">
+                <div class="app-icon-wrap">💰</div>
+                <h3>Affordable</h3>
+                <p>Best prices starting at ₱50. Pay only for what you need.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact-info">
+        <h2 class="section-title">📬 Get In Touch</h2>
+        <p class="section-subtitle">Message us anytime — we reply fast</p>
+        <div class="apps">
+            <a href="https://discord.com/users/sanchezmhike" target="_blank" class="app-card" style="text-decoration:none; color:inherit;">
+                <div class="app-icon-wrap">💬</div>
+                <h3>Discord</h3>
+                <p>sanchezmhike</p>
+            </a>
+            <a href="mailto:sanchezmhike49@gmail.com" class="app-card" style="text-decoration:none; color:inherit;">
+                <div class="app-icon-wrap">📧</div>
+                <h3>Gmail</h3>
+                <p>sanchezmhike49@gmail.com</p>
+            </a>
+        </div>
+    </section>
+
+    <footer style="text-align:center; padding:30px; background:rgba(5,10,20,0.6); border-top:1px solid rgba(0,255,204,0.15); margin-top:40px;">
+        <p style="opacity:0.7; font-size:0.9rem;">© 2026 Elite Grind Services ⚡ All rights reserved</p>
+    </footer>
+
+    <!-- APP MODALS -->
+    <div class="app-modal" id="modal-codm">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeApp('codm')">✕</button>
+            <span class="modal-icon-big">🎯</span>
+            <h2 class="modal-title">COD Mobile</h2>
+            <p class="modal-desc">🔥 Professional CODM grinding by Mythic-ranked players. We push your account safely, grind camos, level weapons, and complete the entire Battle Pass — all while keeping your account 100% secure.</p>
+            <ul class="modal-services">
+                <li>🏆 <span>Rank Push (Rookie → Legendary)</span></li>
+                <li>🔫 <span>Weapon Camo Grinding (Gold, Diamond, Dark Spine)</span></li>
+                <li>⚙️ <span>Weapon Leveling & Attachment Unlocks</span></li>
+                <li>🎖️ <span>Complete Battle Pass (Free & Premium)</span></li>
+                <li>🎯 <span>Daily, Weekly & Seasonal Challenges</span></li>
+                <li>💎 <span>Mythic & Legendary Crate Unlocks</span></li>
+                <li>🏅 <span>Multiplayer & Battle Royale Modes</span></li>
+                <li>🎮 <span>BR Ranked Grinding</span></li>
+            </ul>
+            <div class="modal-prices">
+                <div class="modal-price-item">
+                    <div class="p-title">Basic</div>
+                    <div class="p-amount">₱50</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Premium</div>
+                    <div class="p-amount">₱100</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Ultimate</div>
+                    <div class="p-amount">₱150+</div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="orderNow('COD Mobile')">🚀 Order Now</button>
+                <button class="modal-btn secondary" onclick="closeApp('codm')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-modal" id="modal-ml">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeApp('ml')">✕</button>
+            <span class="modal-icon-big">⚔️</span>
+            <h2 class="modal-title">Mobile Legends</h2>
+            <p class="modal-desc">👑 Climb to Mythic glory with our MLBB grinding pros. We push your rank, master heroes, complete events, and collect every reward — all done by experienced Mythic players.</p>
+            <ul class="modal-services">
+                <li>🏆 <span>Rank Push (Warrior → Mythic / Mythical Glory)</span></li>
+                <li>⚔️ <span>Classic & Ranked Match Grinding</span></li>
+                <li>🛡️ <span>Hero Trial & Mastery Completion</span></li>
+                <li>📜 <span>Weekly & Daily Task Completion</span></li>
+                <li>🎯 <span>Magic Wheel Spins (10+ draws)</span></li>
+                <li>💠 <span>Starlight & Premium Pass Rewards</span></li>
+                <li>🎁 <span>Event Missions & Limited Modes</span></li>
+                <li>🗺️ <span>Brawl, Mayhem & Other Modes</span></li>
+            </ul>
+            <div class="modal-prices">
+                <div class="modal-price-item">
+                    <div class="p-title">Basic</div>
+                    <div class="p-amount">₱50</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Premium</div>
+                    <div class="p-amount">₱100</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Ultimate</div>
+                    <div class="p-amount">₱150+</div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="orderNow('Mobile Legends')">🚀 Order Now</button>
+                <button class="modal-btn secondary" onclick="closeApp('ml')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-modal" id="modal-roblox">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeApp('roblox')">✕</button>
+            <span class="modal-icon-big">🎮</span>
+            <h2 class="modal-title">Roblox</h2>
+            <p class="modal-desc">🌟 Grind any Roblox game for you! Blox Fruits, Grow a Garden, Pet Simulator, Arsenal & tons more. Just tell us which game — we handle the grind so you can enjoy the rewards.</p>
+            <ul class="modal-services">
+                <li>🍎 <span>Blox Fruits — Levels, Fruits, Bosses, Raids</span></li>
+                <li>🌱 <span>Grow a Garden — Crops, Pets & Mutations</span></li>
+                <li>🐾 <span>Pet Simulator 99 — Hatching & Trading</span></li>
+                <li>🔫 <span>Arsenal — Ranked Grind & Skins</span></li>
+                <li>⚔️ <span>Bedwars / Bed Defense</span></li>
+                <li>🏠 <span>Adopt Me — Pets, Houses & Vehicles</span></li>
+                <li>🎯 <span>Murder Mystery 2 — Knives & Guns</span></li>
+                <li>🚗 <span>Driving Empire / Vehicle Sim</span></li>
+                <li>💎 <span>Any other Roblox game — just ask!</span></li>
+            </ul>
+            <div class="modal-prices">
+                <div class="modal-price-item">
+                    <div class="p-title">Basic</div>
+                    <div class="p-amount">₱50</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Premium</div>
+                    <div class="p-amount">₱100</div>
+                </div>
+                <div class="modal-price-item">
+                    <div class="p-title">Ultimate</div>
+                    <div class="p-amount">₱150+</div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn primary" onclick="orderNow('Roblox')">🚀 Order Now</button>
+                <button class="modal-btn secondary" onclick="closeApp('roblox')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ORDER MODAL -->
+    <div class="app-modal" id="modal-order">
+        <div class="modal-content" style="max-width:600px;">
+            <button class="modal-close" onclick="closeOrder()">✕</button>
+            <span class="modal-icon-big">🔥</span>
+            <h2 class="modal-title">Place Your Order</h2>
+            <p class="modal-desc">Fill out the form below and we'll contact you on Discord or Gmail within 1 hour to confirm your order.</p>
+            <form id="contact-form" style="text-align:left; background:rgba(0,255,204,0.05); padding:25px; border-radius:16px; border:1px solid rgba(0,255,204,0.2);">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <input type="text" name="name" placeholder="👤 Your Name" required style="padding:14px; border-radius:12px; border:1px solid #222; background:#0a0f1c; color:#fff; width:100%; margin-bottom:10px;">
+                    <input type="email" name="email" placeholder="📧 Your Email" required style="padding:14px; border-radius:12px; border:1px solid #222; background:#0a0f1c; color:#fff; width:100%; margin-bottom:10px;">
+                </div>
+                <select name="game" required style="padding:14px; border-radius:12px; border:1px solid #222; background:#0a0f1c; color:#fff; width:100%; margin-bottom:10px;">
+                    <option value="">🎮 Select Game</option>
+                    <option>COD Mobile</option>
+                    <option>Mobile Legends</option>
+                    <option>Roblox</option>
+                </select>
+                <select name="plan" required style="padding:14px; border-radius:12px; border:1px solid #222; background:#0a0f1c; color:#fff; width:100%; margin-bottom:10px;">
+                    <option value="">💎 Select Plan</option>
+                    <option>Basic (₱50)</option>
+                    <option>Premium (₱100)</option>
+                    <option>Ultimate (₱150+)</option>
+                </select>
+                <textarea name="message" rows="4" placeholder="📝 Order details (account info, what to grind, etc.)" required style="padding:14px; border-radius:12px; border:1px solid #222; background:#0a0f1c; color:#fff; width:100%; margin-bottom:15px; font-family:inherit;"></textarea>
+                <button type="submit" class="modal-btn primary" style="width:100%; padding:14px;">🚀 Send Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- EMAILJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS
+        (function () {
+            emailjs.init("_qd1tKckWadK75uBE");
+        })();
+
+        // ================= APP FUNCTIONS =================
+        function openApp(app) {
+            document.getElementById('modal-' + app).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeApp(app) {
+            document.getElementById('modal-' + app).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function openOrder() {
+            document.getElementById('apps').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                document.getElementById('modal-order').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 600);
+        }
+        function closeOrder() {
+            document.getElementById('modal-order').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        function orderNow(game) {
+            document.querySelectorAll('.app-modal').forEach(m => m.classList.remove('active'));
+            document.body.style.overflow = 'hidden';
+            const select = document.querySelector('#modal-order select[name="game"]');
+            if (select) select.value = game;
+            document.getElementById('modal-order').classList.add('active');
+        }
+
+        // Close modal on outside click
+        document.querySelectorAll('.app-modal').forEach(modal => {
+            modal.addEventListener('click', function (e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Form submit
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Sending...';
+            btn.disabled = true;
+
+            emailjs.sendForm(
+                "service_brws8xd",
+                "template_9nk8r79",
+                this
+            ).then(() => {
+                alert("🎉 Order Sent Successfully! We'll contact you within 1 hour on Discord/Gmail.");
+                this.reset();
+                closeOrder();
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, (error) => {
+                alert("❌ Failed to send order. Please try again or contact us on Discord/Gmail.");
+                btn.textContent = originalText;
+                btn.disabled = false;
+                console.error('EmailJS Error:', error);
+            });
+        });
+
+        // ESC key to close modals
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.app-modal.active').forEach(m => {
+                    m.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+
+</html>
